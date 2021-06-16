@@ -1,0 +1,39 @@
+version: 3
+projects:
+- name: single-account
+  dir: ./
+  automerge: true
+  terraform_version: v0.15.3
+  autoplan:
+    when_modified: ["**/*.tf*", "!**/multi-accounts"]
+    enabled: true
+  workflow: workspaced
+
+- name: multi-account-env
+  dir: ./
+  autoplan:
+    when_modified: ["**/multi-accounts/env-account/**/*.tf*"]
+    enabled: true
+  workflow: workspaced
+  
+- name: multi-account-legacy
+  dir: ./
+  autoplan:
+    when_modified: ["**/multi-accounts/legacy/**/*.tf*"]
+    enabled: true
+  workflow: workspaced
+  
+- name: multi-account-shared-services 
+  dir: ./
+  autoplan:
+    when_modified: ["**/multi-accounts/shared-services/**/*.tf*"]
+    enabled: true
+  workflow: non-workspaced
+  
+- name: multi-account-organisations
+  dir: ./
+  autoplan:
+    when_modified: ["**/aws-organizations/**/*.tf*"]
+    enabled: true
+  workflow: non-workspaced
+
