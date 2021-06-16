@@ -1,17 +1,44 @@
 --- 
 version: 3
-# automerge: true
-# delete_source_branch_on_merge: true
+automerge: true
 projects: 
-  - apply_requirements: 
-      - mergeable
-      - approved
+  - name: single-account
     autoplan: 
       enabled: true
       when_modified: 
-        - "**/*.tf*"
-        - "!**/multi-accounts"
-    dir: "."
-    name: single-account
-    terraform_version: v0.15.3
-    workflow: workspaced
+        - **/*.tf*
+        - !**/multi-accounts
+    dir: .
+    workspace: dev
+
+  - name: multi-account-env
+    autoplan: 
+      enabled: true
+      when_modified: 
+        - **/multi-accounts/env-account/**/*.tf*
+    dir: .
+    workspace: dev
+
+  - name: multi-account-legacy
+    autoplan: 
+      enabled: true
+      when_modified: 
+        - **/multi-accounts/legacy/**/*.tf*
+    dir: .
+    workspace: dev
+
+  - name: multi-account-shared-services 
+    autoplan: 
+      enabled: true
+      when_modified: 
+        - **/multi-accounts/shared-services/**/*.tf*
+    dir: .
+    workspace: default
+
+  - name: multi-account-organisations 
+    autoplan: 
+      enabled: true
+      when_modified: 
+        - **/aws-organizations/**/*.tf*
+    dir: .
+    workspace: default
