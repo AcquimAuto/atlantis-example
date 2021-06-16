@@ -1,7 +1,7 @@
 version: 3
 projects:
 - name: single-account
-  dir: ./
+  dir: .
   automerge: true
   terraform_version: v0.15.3
   autoplan:
