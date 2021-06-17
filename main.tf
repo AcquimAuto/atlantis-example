@@ -1,2 +1,2 @@
-resource "null_resource" "testu8deyytgy5" {
+resource "null_resource" "testu8detyytgy5" {
 }
